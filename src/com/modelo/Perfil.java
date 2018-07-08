@@ -8,6 +8,36 @@ package com.modelo;
  * CopyTight: ITCA-FEDEPADE
  * @Author: GRUPO#3
  */
-public class Perfil {
+public class Perfil 
+{
+    private int idPerfil;
+    private String perfil;
+
+    public Perfil() {
+    }
+
+    public Perfil(int idPerfil, String perfil) {
+        this.idPerfil = idPerfil;
+        this.perfil = perfil;
+    }
+    
+    
+    public int getIdPerfil() {
+        return idPerfil;
+    }
+
+    public void setIdPerfil(int idPerfil) {
+        this.idPerfil = idPerfil;
+    }
+
+    public String getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(String perfil) {
+        this.perfil = perfil;
+    }
+    
+    
     
 }

@@ -12,6 +12,34 @@ package com.modelo;
  * CopyTight: ITCA-FEDEPADE
  * @Author: GRUPO#3
  */
-public class TipoMantenimiento {
+public class TipoMantenimiento 
+{
+    private int idTipoMantenimiento;
+    private int tipoMantenimiento;
+
+    public TipoMantenimiento() {
+    }
+
+    public TipoMantenimiento(int idTipoMantenimiento, int tipoMantenimiento) {
+        this.idTipoMantenimiento = idTipoMantenimiento;
+        this.tipoMantenimiento = tipoMantenimiento;
+    }
+
+    public int getIdTipoMantenimiento() {
+        return idTipoMantenimiento;
+    }
+
+    public void setIdTipoMantenimiento(int idTipoMantenimiento) {
+        this.idTipoMantenimiento = idTipoMantenimiento;
+    }
+
+    public int getTipoMantenimiento() {
+        return tipoMantenimiento;
+    }
+
+    public void setTipoMantenimiento(int tipoMantenimiento) {
+        this.tipoMantenimiento = tipoMantenimiento;
+    }
+    
     
 }

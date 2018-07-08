@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.modelo;
 
 /**
@@ -12,6 +8,35 @@ package com.modelo;
  * CopyTight: ITCA-FEDEPADE
  * @Author: GRUPO#3
  */
-public class TipoPersona {
+public class TipoPersona 
+{
+    private int idTipoPersona;
+    private String tipo;
+
+    public TipoPersona() {
+    }
+
+    public TipoPersona(int idTipoPersona, String tipo) {
+        this.idTipoPersona = idTipoPersona;
+        this.tipo = tipo;
+    }
+
+    public int getIdTipoPersona() {
+        return idTipoPersona;
+    }
+
+    public void setIdTipoPersona(int idTipoPersona) {
+        this.idTipoPersona = idTipoPersona;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    
     
 }
