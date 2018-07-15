@@ -21,12 +21,13 @@ public class Persona
     private Date fechaNac;
     private String direccion;
     private String email;
+    private String telefono;
     private int idTipoPersona;
 
     public Persona() {
     }
 
-    public Persona(int idPersona, String nombre, String apellido, String dui, String nit, String sexo, Date fechaNac, String direccion, String email, int idTipoPersona) {
+    public Persona(int idPersona, String nombre, String apellido, String dui, String nit, String sexo, Date fechaNac, String direccion, String email, String telefono, int idTipoPersona) {
         this.idPersona = idPersona;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -36,6 +37,7 @@ public class Persona
         this.fechaNac = fechaNac;
         this.direccion = direccion;
         this.email = email;
+        this.telefono = telefono;
         this.idTipoPersona = idTipoPersona;
     }
 
@@ -111,6 +113,14 @@ public class Persona
         this.email = email;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
     public int getIdTipoPersona() {
         return idTipoPersona;
     }
@@ -121,5 +131,6 @@ public class Persona
     
     
     
-    
+
+   
 }
