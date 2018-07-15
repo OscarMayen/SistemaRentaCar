@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 /**
  *Nombre de la clase: Conexion
- * Fecha: 24-06-2018
+ * Fecha: 07-07-2018
  * Version:1.0
  * CopyRight:ITCA-FEDEPADE
  * @author: Oscar Mayen
@@ -33,7 +33,7 @@ public class Conexion
         try 
         {
            Class.forName("com.mysql.jdbc.Driver"); 
-           con=DriverManager.getConnection("jdbc:mysql://localhost:3306/rentacar?user=root&password=");
+           con=DriverManager.getConnection("jdbc:mysql://localhost:3306/rentacar?user=root&password=grupo10");
           
         } 
         
