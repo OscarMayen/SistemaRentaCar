@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
  * CopyRight:ITCA-FEDEPADE
  * @author: Oscar Mayen
  */
+/* Prueba */
 public class Conexion 
 {
     private Connection con;
