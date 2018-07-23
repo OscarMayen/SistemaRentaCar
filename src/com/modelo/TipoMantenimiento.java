@@ -15,14 +15,14 @@ package com.modelo;
 public class TipoMantenimiento 
 {
     private int idTipoMantenimiento;
-    private int tipoMantenimiento;
+    private String tipoManteniento;
 
     public TipoMantenimiento() {
     }
 
-    public TipoMantenimiento(int idTipoMantenimiento, int tipoMantenimiento) {
+    public TipoMantenimiento(int idTipoMantenimiento, String tipoManteniento) {
         this.idTipoMantenimiento = idTipoMantenimiento;
-        this.tipoMantenimiento = tipoMantenimiento;
+        this.tipoManteniento = tipoManteniento;
     }
 
     public int getIdTipoMantenimiento() {
@@ -33,13 +33,14 @@ public class TipoMantenimiento
         this.idTipoMantenimiento = idTipoMantenimiento;
     }
 
-    public int getTipoMantenimiento() {
-        return tipoMantenimiento;
+    public String getTipoManteniento() {
+        return tipoManteniento;
     }
 
-    public void setTipoMantenimiento(int tipoMantenimiento) {
-        this.tipoMantenimiento = tipoMantenimiento;
+    public void setTipoManteniento(String tipoManteniento) {
+        this.tipoManteniento = tipoManteniento;
     }
+
     
     
 }
