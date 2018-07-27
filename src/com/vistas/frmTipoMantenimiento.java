@@ -18,8 +18,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author luism
+ * Nombre del formulario : frmTipoMantenimiento
+ * Fecha : 26JUN2018
+ * CopyRight : ITCA-FEPADE
+ * @author Luis Meléndez
  */
 public class frmTipoMantenimiento extends javax.swing.JFrame {
 
