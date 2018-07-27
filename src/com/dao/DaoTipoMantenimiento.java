@@ -13,8 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author luism
+ * Nombre de la clase : DaoTipoMantenimiento
+ * Fecha : 26JUN2018.
+ * CopyRight : ITCA-FEPADE
+ * @author Grupo#3
  */
 public class DaoTipoMantenimiento extends Conexion{
     

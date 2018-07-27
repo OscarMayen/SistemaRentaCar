@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  * Nombre del formulario : frmTipoMantenimiento
  * Fecha : 26JUN2018
  * CopyRight : ITCA-FEPADE
- * @author Luis Meléndez
+ * @author Grupo#3
  */
 public class frmTipoMantenimiento extends javax.swing.JFrame {
 
