@@ -78,6 +78,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         contentMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         contentMenuItem.setMnemonic('c');
         contentMenuItem.setText("Nuevo Cliente");
+        contentMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contentMenuItemActionPerformed(evt);
+            }
+        });
         helpMenu.add(contentMenuItem);
 
         aboutMenuItem.setMnemonic('a');
@@ -113,6 +118,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
         this.desktopPane.add(perfil);
         perfil.setVisible(true);
     }//GEN-LAST:event_cutMenuItemActionPerformed
+
+    private void contentMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contentMenuItemActionPerformed
+       FrmCliente cliente  = new FrmCliente();
+        this.desktopPane.add(cliente);
+        cliente.setVisible(true);
+    }//GEN-LAST:event_contentMenuItemActionPerformed
 
     /**
      * @param args the command line arguments

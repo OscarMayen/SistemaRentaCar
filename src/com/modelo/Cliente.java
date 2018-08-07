@@ -13,17 +13,17 @@ import java.sql.Date;
 public class Cliente 
 {
     private int idCliente;
-    private Date fechaIngreso;
+    private String fechaIngreso;
     private String licencia;
     private String lugarDeTrabajo;
     private String tipoCliente;
     private int idPersona;
-    private boolean estado;
+    private String estado;
 
     public Cliente() {
     }
 
-    public Cliente(int idCliente, Date fechaIngreso, String licencia, String lugarDeTrabajo, String tipoCliente, int idPersona, boolean estado) {
+    public Cliente(int idCliente, String fechaIngreso, String licencia, String lugarDeTrabajo, String tipoCliente, int idPersona, String estado) {
         this.idCliente = idCliente;
         this.fechaIngreso = fechaIngreso;
         this.licencia = licencia;
@@ -41,11 +41,11 @@ public class Cliente
         this.idCliente = idCliente;
     }
 
-    public Date getFechaIngreso() {
+    public String getFechaIngreso() {
         return fechaIngreso;
     }
 
-    public void setFechaIngreso(Date fechaIngreso) {
+    public void setFechaIngreso(String fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
     }
 
@@ -81,14 +81,15 @@ public class Cliente
         this.idPersona = idPersona;
     }
 
-    public boolean isEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(boolean estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
     
     
+
     
 }
