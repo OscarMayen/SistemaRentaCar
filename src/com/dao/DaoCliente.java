@@ -52,7 +52,7 @@ public class DaoCliente extends Conexion
         try 
         {
             this.conectar();
-            String sql="update cliente set fechaIngreso=?,licencia=?,lugarDeTrabajo=,"
+            String sql="update cliente set fechaIngreso=?,licencia=?,lugarDeTrabajo=?,"
                     + "tipoCliente=?,idPersona=?,estado=? where idCliente=?";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setString(1, cli.getFechaIngreso());
@@ -97,7 +97,7 @@ public class DaoCliente extends Conexion
     }
    
    public List mostrarCliente() throws Exception
-     {
+    {
          List clientes=new ArrayList();
          ResultSet res;
          try 
@@ -129,9 +129,6 @@ public class DaoCliente extends Conexion
          }
          return clientes;
      }
-   
-   
-   
    
    
     public int recuperarUltimo() throws Exception{
