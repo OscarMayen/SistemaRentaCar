@@ -3,6 +3,7 @@ package com.vistas;
 
 import com.dao.DaoPersona;
 import com.modelo.Persona;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,13 +17,13 @@ public class FrmDatosPersonales extends javax.swing.JInternalFrame {
    
     public FrmDatosPersonales() {
         initComponents();
-        tablaClientes();
+        tablaPersona();
     }
 
     Persona per = new Persona();
     DaoPersona daoP = new DaoPersona();
     
-    public void tablaClientes()
+    public void tablaPersona()
     {
         String [] columnas = {"idPersona","nombre","apellido","dui","nit","sexo",
         "fechaNac","direccion","telefono","email","idTipoPersona"};
@@ -56,6 +57,91 @@ public class FrmDatosPersonales extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Error al mostrar datos" + e.toString());
         }
     }
+    
+    public void llenarTabla()
+    {
+        int fila = this.JtbDatosPersona.getSelectedRow();
+        this.txtIdPersona.setText(String.valueOf(this.JtbDatosPersona.getValueAt(fila,0)));
+        this.txtNombre.setText(String.valueOf(this.JtbDatosPersona.getValueAt(fila,1)));
+        this.txtApellido.setText(String.valueOf(this.JtbDatosPersona.getValueAt(fila,2)));
+        this.txtDui.setText(String.valueOf(this.JtbDatosPersona.getValueAt(fila,3)));
+        this.txtNit.setText(String.valueOf(this.JtbDatosPersona.getValueAt(fila,4)));
+        String genero = String.valueOf(this.JtbDatosPersona.getValueAt(fila, 5));
+        if (genero.toUpperCase().equals("M")) {
+                RbMasculino.setSelected(true);
+            } else {
+                RbFemenino.setSelected(true);
+            }
+        //fecha
+        this.txtDireccion.setText(String.valueOf(this.JtbDatosPersona.getValueAt(fila,7)));
+        this.txtTelefono.setText(String.valueOf(this.JtbDatosPersona.getValueAt(fila,8)));
+        this.txtEmail.setText(String.valueOf(this.JtbDatosPersona.getValueAt(fila,9)));
+        this.txtTipoPersona.setText(String.valueOf(this.JtbDatosPersona.getValueAt(fila,10)));
+    }
+    
+    public void limpiar()
+    {
+        this.txtIdPersona.setText("");
+        this.txtNombre.setText("");
+        this.txtApellido.setText("");
+        this.txtDui.setText("");
+        this.txtNit.setText("");
+        this.buttonGroup1.clearSelection();
+        this.txtFechaNac.setDate(null);
+        this.txtDireccion.setText("");
+        this.txtTelefono.setText("");
+        this.txtEmail.setText("");
+        this.txtTipoPersona.setText("");
+    }
+    
+    public void modificarPersona()
+     {
+         
+         try 
+         {
+             String dia = Integer.toString(txtFechaNac.getCalendar().get(Calendar.DAY_OF_MONTH));
+             String mes = Integer.toString(txtFechaNac.getCalendar().get(Calendar.MONTH) + 1);
+             String anio = Integer.toString(txtFechaNac.getCalendar().get(Calendar.YEAR));
+             String fecha = (anio + "/" + mes + "/" + dia);
+             
+            per.setIdPersona(Integer.parseInt(this.txtIdPersona.getText()));
+            per.setNombre(this.txtNombre.getText());
+            per.setApellido(this.txtApellido.getText());
+            per.setDui(this.txtDui.getText());
+            per.setNit(this.txtNit.getText());
+            if (this.RbMasculino.isSelected()) {
+                 per.setSexo("M");
+             } else {
+                 per.setSexo("F");
+             }
+            per.setFechaNac(fecha);
+            per.setDireccion(this.txtDireccion.getText());
+            per.setTelefono(this.txtTelefono.getText());
+            per.setEmail(this.txtEmail.getText());
+            per.setIdTipoPersona(Integer.parseInt(this.txtTipoPersona.getText()));
+            int SiONo=JOptionPane.showConfirmDialog(this, "Desea modificar los datos","MODIFICAR DATOS PERSONALES",JOptionPane.YES_NO_OPTION);
+            
+             if (SiONo==0)
+            {
+                daoP.modificarPersona(per);
+                JOptionPane.showMessageDialog(rootPane, "Datos modificado con exito","Confirmacion",JOptionPane.INFORMATION_MESSAGE);
+                tablaPersona();
+                limpiar();
+            }
+             
+             else
+             {
+                 limpiar();
+             }
+         } 
+        
+         
+         catch (Exception ex) 
+         {
+           ex.printStackTrace();
+         }
+     
+     }
     
     
     
@@ -95,9 +181,9 @@ public class FrmDatosPersonales extends javax.swing.JInternalFrame {
         JtbDatosPersona = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -120,6 +206,8 @@ public class FrmDatosPersonales extends javax.swing.JInternalFrame {
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel6.setText("NIT:");
+
+        txtIdPersona.setEnabled(false);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel1.setText("SEXO:");
@@ -149,6 +237,8 @@ public class FrmDatosPersonales extends javax.swing.JInternalFrame {
         jLabel11.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel11.setText("TIPO DE PERSONA:");
 
+        txtTipoPersona.setEnabled(false);
+
         JtbDatosPersona.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null},
@@ -160,6 +250,11 @@ public class FrmDatosPersonales extends javax.swing.JInternalFrame {
                 "id", "Nombre", "Apellido", "Dui", "Nit", "Sexo", "Fecha Nacimiento", "Direccion", "Telefono", "Email", "Tipo Persona"
             }
         ));
+        JtbDatosPersona.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JtbDatosPersonaMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(JtbDatosPersona);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -168,17 +263,27 @@ public class FrmDatosPersonales extends javax.swing.JInternalFrame {
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/GUARDAR1.png"))); // NOI18N
         jButton1.setText("GUARDAR");
 
-        jButton2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/editar1.png"))); // NOI18N
-        jButton2.setText("EDITAR");
+        btnEditar.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/editar1.png"))); // NOI18N
+        btnEditar.setText("EDITAR");
+        btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEditarMouseClicked(evt);
+            }
+        });
 
-        jButton3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/limpiar1.png"))); // NOI18N
-        jButton3.setText("LIMPIAR");
+        btnLimpiar.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/limpiar1.png"))); // NOI18N
+        btnLimpiar.setText("LIMPIAR");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
-        jButton4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/buscar1.png"))); // NOI18N
-        jButton4.setText("BUSCAR");
+        btnBuscar.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/buscar1.png"))); // NOI18N
+        btnBuscar.setText("BUSCAR");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -188,22 +293,22 @@ public class FrmDatosPersonales extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
 
@@ -323,13 +428,25 @@ public class FrmDatosPersonales extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(41, 41, 41)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiar();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void JtbDatosPersonaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JtbDatosPersonaMouseClicked
+        llenarTabla();
+    }//GEN-LAST:event_JtbDatosPersonaMouseClicked
+
+    private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
+        modificarPersona();
+    }//GEN-LAST:event_btnEditarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -337,11 +454,11 @@ public class FrmDatosPersonales extends javax.swing.JInternalFrame {
     private javax.swing.JTable JtbDatosPersona;
     private javax.swing.JRadioButton RbFemenino;
     private javax.swing.JRadioButton RbMasculino;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

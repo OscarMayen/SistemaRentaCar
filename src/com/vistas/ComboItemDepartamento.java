@@ -1,23 +1,23 @@
+
 package com.vistas;
 
 /**
-*  Nombre de la clase: ComoItemTipoPersonas
- * Fecha:14-07-2018
- * Versión: 1.0
- * CopyRight:ITCA-FEPADE
- * @author: GRUPO#3
+ *Nombre de la clase: ComboItemDepartamento
+ *Fecha:09-08-2018
+ *Version: 1.0
+ *CopyTight: ITCA-FEPADE
+ * @Author: GRUPO#3
  */
-
-public class ComoItemTipoPersonas 
+public class ComboItemDepartamento 
 {
     
     private int value;
     private String label;
 
-    public ComoItemTipoPersonas() {
+    public ComboItemDepartamento() {
     }
 
-    public ComoItemTipoPersonas(int value, String label) {
+    public ComboItemDepartamento(int value, String label) {
         this.value = value;
         this.label = label;
     }
@@ -42,8 +42,6 @@ public class ComoItemTipoPersonas
     public String toString() {
         return label;
     }
-    
-    
     
     
 }

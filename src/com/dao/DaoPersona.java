@@ -54,8 +54,8 @@ public class DaoPersona extends Conexion
         try 
         {
             this.conectar();
-            String sql="update persona set nombre=?,apellido=?,dui=?,nit=?, sexo=?,fechaNac=?"
-                    + "direccion=?,telefono=?,email=? idTipoPersona=?  where idPersona=?";
+            String sql="update persona set nombre=?,apellido=?,dui=?,nit=?,sexo=?,fechaNac=?,"
+                    + "direccion=?,telefono=?,email=?, idTipoPersona=? where idPersona=?";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setString(1, per.getNombre());
             pre.setString(2, per.getApellido());
@@ -139,5 +139,22 @@ public class DaoPersona extends Conexion
          return personas;
      }
     
+     public int recuperarUltimo() throws Exception{
+        
+        int idR=0;
+        ResultSet res;
+        try {
+            this.conectar();
+            String sql="select Max(idPersona) from persona;";
+            PreparedStatement pre=this.getCon().prepareStatement(sql);
+            res = pre.executeQuery();
+            if(res.next()){
+               idR=res.getInt(1);
+            }
+            
+        } catch (Exception e) {
+        }
+     return idR;   
+    }
     
 }

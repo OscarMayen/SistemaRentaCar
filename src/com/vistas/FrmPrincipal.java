@@ -5,6 +5,9 @@
  */
 package com.vistas;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *Nombre de la clase: FrmPrincipal
  * Version: 1.0
@@ -42,14 +45,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
         aboutMenuItem = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        fileMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/tipo1.png"))); // NOI18N
         fileMenu.setMnemonic('f');
-        fileMenu.setText("Admon. Tipo de Personas");
+        fileMenu.setText("TIPO PERSONAS");
 
         openMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         openMenuItem.setMnemonic('o');
@@ -63,8 +69,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menuBar.add(fileMenu);
 
+        editMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/perfil1.png"))); // NOI18N
         editMenu.setMnemonic('e');
-        editMenu.setText("Admon. Perfiles");
+        editMenu.setText("PERFILES");
 
         cutMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
         cutMenuItem.setMnemonic('t');
@@ -78,8 +85,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menuBar.add(editMenu);
 
+        helpMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/clientes1.png"))); // NOI18N
         helpMenu.setMnemonic('h');
-        helpMenu.setText("Admon. Clientes");
+        helpMenu.setText("CLIENTES");
 
         contentMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         contentMenuItem.setMnemonic('c');
@@ -103,7 +111,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menuBar.add(helpMenu);
 
-        jMenu1.setText("Datos Personales");
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/datos.png"))); // NOI18N
+        jMenu1.setText("DATOS PERSONALES");
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("Listado de Datos");
@@ -114,10 +123,24 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
-        jMenuItem3.setText("jMenuItem3");
-        jMenu1.add(jMenuItem3);
-
         menuBar.add(jMenu1);
+
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/empleado1.png"))); // NOI18N
+        jMenu2.setText("EMPLEADOS");
+
+        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem5.setText("Nuevo Empleado");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem5);
+
+        jMenuItem4.setText("Listado de Empleados");
+        jMenu2.add(jMenuItem4);
+
+        menuBar.add(jMenu2);
 
         setJMenuBar(menuBar);
 
@@ -125,11 +148,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 983, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
         );
 
         pack();
@@ -148,7 +171,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cutMenuItemActionPerformed
 
     private void contentMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contentMenuItemActionPerformed
-       FrmCliente cliente  = new FrmCliente();
+        FrmCliente cliente  = new FrmCliente();
         this.desktopPane.add(cliente);
         cliente.setVisible(true);
     }//GEN-LAST:event_contentMenuItemActionPerformed
@@ -164,6 +187,16 @@ public class FrmPrincipal extends javax.swing.JFrame {
         this.desktopPane.add(personaDatos);
         personaDatos.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        try {
+            FrmEmpleado empleado  = new FrmEmpleado();
+            this.desktopPane.add(empleado);
+            empleado.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,9 +242,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     // End of variables declaration//GEN-END:variables

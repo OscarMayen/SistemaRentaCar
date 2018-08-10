@@ -84,10 +84,10 @@ public class DaoPerfil extends Conexion
         }
     }
      
-     public List mostrarPerfil() throws Exception
+     public ArrayList<Perfil> mostrarPerfil() throws Exception
      {
-         List perfiles=new ArrayList();
-         ResultSet res;
+         ArrayList<Perfil> perfiles = new ArrayList();
+         ResultSet res=null;
          try 
          {
             this.conectar();

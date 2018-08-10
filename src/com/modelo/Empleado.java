@@ -14,16 +14,16 @@ public class Empleado
 {
     private int idEmpleado;
     private double salario;
-    private Date fechaInicio;
+    private String fechaInicio;
     private String isss;
-    private boolean estado;
+    private String estado;
     private int idPersona;
     private int idDepartamento;
 
     public Empleado() {
     }
 
-    public Empleado(int idEmpleado, double salario, Date fechaInicio, String isss, boolean estado, int idPersona, int idDepartamento) {
+    public Empleado(int idEmpleado, double salario, String fechaInicio, String isss, String estado, int idPersona, int idDepartamento) {
         this.idEmpleado = idEmpleado;
         this.salario = salario;
         this.fechaInicio = fechaInicio;
@@ -49,11 +49,11 @@ public class Empleado
         this.salario = salario;
     }
 
-    public Date getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
@@ -65,11 +65,11 @@ public class Empleado
         this.isss = isss;
     }
 
-    public boolean isEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(boolean estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
@@ -88,8 +88,9 @@ public class Empleado
     public void setIdDepartamento(int idDepartamento) {
         this.idDepartamento = idDepartamento;
     }
+
     
-    
+   
     
     
     

@@ -66,24 +66,25 @@ public class DaoDepartamento extends Conexion {
             
         }
     }
-    public List mostrarDepartamento() throws Exception{
-        List Departamentos = new ArrayList();
-        ResultSet res;
+    public ArrayList<Departamento> mostrarDepartamento() throws Exception
+    {
+        ArrayList<Departamento> departamentos = new ArrayList();
+        ResultSet res=null;
         try {
             this.conectar();
             String sql="Select * from departamento";
-            PreparedStatement pre=this.getCon().prepareStatement(sql);
+            PreparedStatement pre=this.getCon().prepareCall(sql);
             res = pre.executeQuery();
             while (res.next()){
                 Departamento dpto=new Departamento();
                 dpto.setIdDepartamento(res.getInt("idDepartamento"));
                 dpto.setNombre(res.getString("nombre"));
-                Departamentos.add(dpto);
+                departamentos.add(dpto);
                 
             }
             
         } catch (Exception e) {
         }
-     return Departamentos;   
+     return departamentos;   
     }
 }
