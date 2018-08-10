@@ -23,8 +23,8 @@ public class DaoEmpleado extends Conexion
         {
             this.conectar();
             String sql="insert into empleado" +
-                        "(idEmpleado,salario,fechaInicio,idPersona,isss,estado,idDepartamento)" +
-                        "values(?,?,?,?,?,?,?);";
+                        "(salario,fechaInicio,idPersona,isss,estado,idDepartamento)" +
+                        "values(?,?,?,?,?,?);";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setDouble(1,em.getSalario());
             pre.setString(2, em.getFechaInicio());

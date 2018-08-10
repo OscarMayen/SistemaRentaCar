@@ -56,6 +56,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         fileMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/tipo1.png"))); // NOI18N
         fileMenu.setMnemonic('f');
         fileMenu.setText("TIPO PERSONAS");
+        fileMenu.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
 
         openMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         openMenuItem.setMnemonic('o');
@@ -72,6 +73,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         editMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/perfil1.png"))); // NOI18N
         editMenu.setMnemonic('e');
         editMenu.setText("PERFILES");
+        editMenu.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
 
         cutMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
         cutMenuItem.setMnemonic('t');
@@ -88,6 +90,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         helpMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/clientes1.png"))); // NOI18N
         helpMenu.setMnemonic('h');
         helpMenu.setText("CLIENTES");
+        helpMenu.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
 
         contentMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         contentMenuItem.setMnemonic('c');
@@ -113,6 +116,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/datos.png"))); // NOI18N
         jMenu1.setText("DATOS PERSONALES");
+        jMenu1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("Listado de Datos");
@@ -127,6 +131,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/empleado1.png"))); // NOI18N
         jMenu2.setText("EMPLEADOS");
+        jMenu2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
 
         jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem5.setText("Nuevo Empleado");

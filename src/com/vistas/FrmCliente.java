@@ -27,7 +27,7 @@ public class FrmCliente extends javax.swing.JInternalFrame {
     
     public FrmCliente() {
         initComponents();
-        this.txtTipoPersona.setText("2");
+        this.txtTipoPersona.setText("1");
     }
     
     Persona per = new Persona();
@@ -145,11 +145,7 @@ public class FrmCliente extends javax.swing.JInternalFrame {
         this.txtUsuario.setText(null);
         this.txtClave.setText("");
         this.txtAsignacionPer.setText("");
-        
-        
-    }
-    
-    
+   }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

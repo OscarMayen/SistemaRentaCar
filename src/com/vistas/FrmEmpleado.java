@@ -16,6 +16,8 @@ import com.utilidades.FuncionesValidacion;
 import static java.awt.Frame.ICONIFIED;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -30,6 +32,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
         initComponents();
         cargarComboDepar(cmbDepartamento, daoDep.mostrarDepartamento());
         cargarComboPerfil(cmbPerfil, daoPerfil.mostrarPerfil());
+        this.txtIdTipoPersona.setText("2");
     }
 
     Persona per = new Persona();
@@ -59,7 +62,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
     private void cargarComboPerfil(JComboBox comboP, ArrayList<Perfil> listP) throws Exception {
 
         for (Perfil item : listP) {
-            comboP.addItem(new ComboItemDepartamento(item.getIdPerfil(), item.getPerfil()));
+            comboP.addItem(new ComboItemPerfil(item.getIdPerfil(), item.getPerfil()));
         }
 
     }
@@ -92,6 +95,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
         per.setEmail(this.txtEmail.getText());
         per.setIdTipoPersona(Integer.parseInt(txtIdTipoPersona.getText()));
         daoP.insertarPersona(per);
+       
    }
     
     
@@ -106,7 +110,20 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
         em.setFechaInicio(fechaInicio);
         em.setSalario(Double.parseDouble(this.txtSalario.getText()));
         em.setIsss(this.txtNumIss.getText());
-        //em.setIdDepartamento(this.cmbDepartamento.getSelectedItem().toString());
+        
+        //Capturar lo del comboxEmpleado
+        String depto = cmbDepartamento.getSelectedItem().toString();
+        ComboItemDepartamento item = new ComboItemDepartamento();
+
+        /*for (int i = 0; i < cmbDepartamento.getItemCount(); i++) {
+            if (depto.equals(cmbDepartamento.getItemAt(i).toString())) {
+                item = cmbDepartamento.getModel().getElementAt(i);
+            }
+        }*/
+        ComboItemDepartamento dp = (ComboItemDepartamento)cmbDepartamento.getSelectedItem();
+        int codigo = dp.getValue();
+        String nombre = dp.getLabel();
+        em.setIdDepartamento(codigo);
         if(this.RbActivo.isSelected())
         {
             em.setEstado("Activo");
@@ -121,6 +138,21 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
         
    }
     
+    public void insertarUsuario ()throws Exception
+    {
+        usu.setIdUsuario(ICONIFIED);
+        usu.setUsuario(this.txtUsuario.getText());
+        usu.setPassword(this.txtUsuario.getText());
+        usu.setIdPersona(daoUsu.recuperarUltimo());
+        
+        ComboItemPerfil cp = (ComboItemPerfil)cmbPerfil.getSelectedItem();
+        int codigo = cp.getValue();
+        String nombre = cp.getLabel();
+        usu.setIdPerfil(codigo);
+        daoUsu.insertarUsuario(usu);
+        JOptionPane.showMessageDialog(null, "Datos insertados con exito! \nUsuario Registrado");
+        
+   }
     
     
     
@@ -178,10 +210,10 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jTextField12 = new javax.swing.JTextField();
+        txtIdUsuario = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
+        txtClave = new javax.swing.JPasswordField();
+        txtAsignacionPer = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         btnGuardarEmpleado = new javax.swing.JButton();
@@ -222,11 +254,28 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
             }
         });
 
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
+            }
+        });
+
+        try {
+            txtDui.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########-#")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         txtDui.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDuiActionPerformed(evt);
             }
         });
+
+        try {
+            txtNit.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-######-###-#")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel8.setText("SEXO:");
@@ -251,8 +300,16 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
         RbFemenino.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         RbFemenino.setText("FEMENINO");
 
+        txtFechaNac.setDateFormatString("dd-MM-yyyy");
+
         jLabel20.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel20.setText("TELEFONO:");
+
+        try {
+            txtTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("+(503)####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         txtIdTipoPersona.setEnabled(false);
 
@@ -348,7 +405,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
                             .addComponent(txtIdTipoPersona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -370,6 +427,8 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
         jLabel16.setText("NO. ISSS:");
 
         txtIdEmpleado.setEnabled(false);
+
+        txtFechaInicio.setDateFormatString("dd-MM-yyyy");
 
         jLabel17.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel17.setText("DEPARTAMENTO");
@@ -407,7 +466,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
                     .addComponent(txtIdEmpleado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSalario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFechaInicio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
-                .addGap(82, 82, 82)
+                .addGap(79, 79, 79)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel19)
                     .addComponent(jLabel18)
@@ -461,7 +520,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(txtNumIss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -481,9 +540,9 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
         jLabel26.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel26.setText("PERFIL:");
 
-        jTextField10.setEnabled(false);
+        txtIdUsuario.setEnabled(false);
 
-        jTextField12.setEnabled(false);
+        txtAsignacionPer.setEnabled(false);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -494,6 +553,11 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
         btnGuardarEmpleado.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnGuardarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/GUARDAR1.png"))); // NOI18N
         btnGuardarEmpleado.setText("GUARDAR EMPLEADO");
+        btnGuardarEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGuardarEmpleadoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -527,15 +591,15 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel22)
                             .addComponent(jLabel23)
-                            .addComponent(jLabel24)
                             .addComponent(jLabel26)
-                            .addComponent(jLabel25))
-                        .addGap(44, 44, 44)
+                            .addComponent(jLabel25)
+                            .addComponent(jLabel24))
+                        .addGap(66, 66, 66)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPasswordField1)
-                            .addComponent(jTextField11, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtClave)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                            .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAsignacionPer, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cmbPerfil, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(156, 156, 156)
@@ -550,21 +614,21 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel22)
-                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(25, 25, 25)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel23)
-                            .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(32, 32, 32)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel24)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(33, 33, 33)
                         .addComponent(jLabel26))
                     .addComponent(cmbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAsignacionPer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel25))
                 .addGap(31, 31, 31)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -576,35 +640,39 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(237, 237, 237)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(32, 32, 32)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(78, Short.MAX_VALUE))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(140, 140, 140)
+                        .addComponent(jLabel1)))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1)
-                .addGap(5, 5, 5)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel1)
+                        .addGap(32, 32, 32))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
@@ -615,8 +683,30 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtDuiActionPerformed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-        // TODO add your handling code here:
+        validacion.wordsOnly(evt);
     }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void btnGuardarEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarEmpleadoMouseClicked
+        try {
+            insertarPersona();
+        } catch (Exception ex) {
+            Logger.getLogger(FrmEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         try {
+            insertarEmpleado();
+        } catch (Exception ex) {
+            Logger.getLogger(FrmEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            insertarUsuario();
+        } catch (Exception ex) {
+            Logger.getLogger(FrmEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnGuardarEmpleadoMouseClicked
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+        validacion.wordsOnly(evt);
+    }//GEN-LAST:event_txtApellidoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -659,11 +749,9 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextField txtAsignacionPer;
+    private javax.swing.JPasswordField txtClave;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JFormattedTextField txtDui;
     private javax.swing.JTextField txtEmail;
@@ -672,11 +760,13 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtIdEmpleado;
     private javax.swing.JTextField txtIdPersona;
     private javax.swing.JTextField txtIdTipoPersona;
+    private javax.swing.JTextField txtIdUsuario;
     private javax.swing.JFormattedTextField txtNit;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JFormattedTextField txtNumIss;
     private javax.swing.JTextField txtPersonaAsignacion;
     private javax.swing.JFormattedTextField txtSalario;
     private javax.swing.JFormattedTextField txtTelefono;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
