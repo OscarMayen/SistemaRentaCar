@@ -60,6 +60,7 @@ public class FrmPerfiles extends javax.swing.JInternalFrame {
         perfil.setPerfil(this.txtPerfil.getText());
         daoperfil.insertarPerfil(perfil);
         JOptionPane.showMessageDialog(null, "Datos insertados con exito");
+        tablaPerfil();
         limpiar();
     }
      
