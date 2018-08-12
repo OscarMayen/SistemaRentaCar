@@ -223,7 +223,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        FrmDepartamento depto  = new FrmDepartamento();
+        FrmDepar depto  = new FrmDepar();
         this.desktopPane.add(depto);
         depto.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
