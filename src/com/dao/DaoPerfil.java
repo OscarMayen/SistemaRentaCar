@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.List;
+
 
 
 /**
@@ -85,33 +87,25 @@ public class DaoPerfil extends Conexion
     }
      
      public ArrayList<Perfil> mostrarPerfil() throws Exception
-     {
-         ArrayList<Perfil> perfiles = new ArrayList();
-         ResultSet res=null;
-         try 
-         {
+    {
+        ArrayList<Perfil> perfiles = new ArrayList();
+        ResultSet res=null;
+        try {
             this.conectar();
-            String sql = "select * from perfil";
-            PreparedStatement pre = this.getCon().prepareStatement(sql);
-            res=pre.executeQuery();
-            while(res.next())
-            {
+            String sql="Select * from perfil";
+            PreparedStatement pre=this.getCon().prepareCall(sql);
+            res = pre.executeQuery();
+            while (res.next()){
                 Perfil perfil=new Perfil();
                 perfil.setIdPerfil(res.getInt("idPerfil"));
                 perfil.setPerfil(res.getString("perfil"));
-                
                 perfiles.add(perfil);
+                
             }
-         } 
-         catch (Exception e) 
-         {
-             throw e;
-         }
-         finally
-         {
-             this.desconectar();
-         }
-         return perfiles;
-     }
+            
+        } catch (Exception e) {
+        }
+     return perfiles;   
+    }
     
 }

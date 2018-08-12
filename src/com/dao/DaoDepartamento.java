@@ -17,13 +17,13 @@ import java.util.List;
  * @author luism
  */
 public class DaoDepartamento extends Conexion {
+    
     public void insertarDepartamento (Departamento dpto) throws Exception {
         try {
             this.conectar();
-            String sql="insert into departamento(idDepartamento, nombre) value(?,?)";
+            String sql="insert into departamento(nombre) value(?)";
             PreparedStatement pre=this.getCon().prepareStatement(sql);
-            pre.setInt(1,dpto.getIdDepartamento());
-            pre.setString(2,dpto.getNombre());
+            pre.setString(1,dpto.getNombre());
             pre.executeUpdate();
             
         } catch (Exception e) {
