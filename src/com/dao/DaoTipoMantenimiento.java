@@ -48,8 +48,10 @@ public class DaoTipoMantenimiento extends Conexion{
             this.conectar();
             String sql="update tipomantenimiento set tipomanteniento=? where idtipomantenimiento=?";
             PreparedStatement pre =this.getCon().prepareStatement(sql);
-            pre.setInt(1,tipoM.getIdTipoMantenimiento());
-            pre.setString(2,tipoM.getTipoManteniento());
+            pre.setString(1,tipoM.getTipoManteniento());
+            
+            pre.setInt(2,tipoM.getIdTipoMantenimiento());
+            
             pre.executeUpdate();
         }
         catch (Exception e) {
