@@ -139,6 +139,50 @@ public class DaoPersona extends Conexion
          return personas;
      }
     
+     
+     public Persona getPersona(int idPersona) throws Exception
+    {
+        Persona per = new Persona();
+        ResultSet res;
+         try 
+         {
+            this.conectar();
+            String sql = "select * from persona where idPersona=?";
+            PreparedStatement pre = this.getCon().prepareCall(sql);
+            pre.setInt(1, idPersona);   
+            res = pre.executeQuery();
+            while(res.next())
+            {
+                per.setIdPersona(res.getInt("idPersona"));
+                per.setNombre(res.getString("nombre"));
+                per.setApellido(res.getString("apellido"));
+                per.setDui(res.getString("dui"));
+                per.setNit(res.getString("nit"));
+                per.setSexo(res.getString("sexo"));
+                per.setFechaNac(res.getString("fechaNac"));
+                per.setDireccion(res.getString("direccion"));
+                per.setTelefono(res.getString("telefono"));
+                per.setEmail(res.getString("email"));
+                per.setIdTipoPersona(res.getInt("idTipoPersona"));
+                
+            }
+         } 
+         catch (Exception e) 
+         {
+             throw e;
+         }
+         finally
+         {
+             this.desconectar();
+         }
+         return per;
+     }
+     
+     
+     
+     
+     
+     
      public int recuperarUltimo() throws Exception{
         
         int idR=0;

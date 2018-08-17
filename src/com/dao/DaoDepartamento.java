@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -72,7 +73,7 @@ public class DaoDepartamento extends Conexion {
         ResultSet res=null;
         try {
             this.conectar();
-            String sql="Select * from departamento";
+            String sql="select * from departamento";
             PreparedStatement pre=this.getCon().prepareCall(sql);
             res = pre.executeQuery();
             while (res.next()){
@@ -87,4 +88,33 @@ public class DaoDepartamento extends Conexion {
         }
      return departamentos;   
     }
+    
+    
+    public Departamento getDepto(int depto) throws Exception{
+     Departamento dep = new Departamento();
+      
+     ResultSet res = null;
+        try {
+            this.conectar();
+            String sql = "select * from departamento where idDepartamento = ?";
+            PreparedStatement pre = this.getCon().prepareCall(sql);
+              pre.setInt(1, depto);   
+            res = pre.executeQuery();
+                   
+            while (res.next()) {              
+                dep.setIdDepartamento(res.getInt("idDepartamento"));
+                dep.setNombre(res.getString("nombre"));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            throw e;
+        } finally {
+            this.desconectar();
+        }
+        return dep;
+    
+    }
+
+    
+    
 }

@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *Nombre de la clase: DaoEmpleado
@@ -127,6 +128,8 @@ public class DaoEmpleado extends Conexion
          }
          return empleados;
      }
+    
+    
     
     
 }
