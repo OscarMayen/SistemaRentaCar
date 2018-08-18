@@ -6,6 +6,7 @@ import com.modelo.Agencia;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *Nombre de la clase: DaoAgencia
@@ -111,5 +112,35 @@ public class DaoAgencia extends Conexion
         }
      return agencias;   
     }
+    
+    public Agencia getDepto(int agencia) throws Exception{
+     Agencia agen = new Agencia();
+      
+     ResultSet res = null;
+        try {
+            this.conectar();
+            String sql = "select * from agencia where idAgencia = ?";
+            PreparedStatement pre = this.getCon().prepareCall(sql);
+              pre.setInt(1, agencia);   
+            res = pre.executeQuery();
+                   
+            while (res.next()) {              
+                agen.setIdAgencia(res.getInt("idAgencia"));
+                agen.setNombreAgencia(res.getString("nombreAgencia"));
+                agen.setTelefonoAgencia(res.getString("telefonoAgencia"));
+                agen.setDireccionAgencia(res.getString("direccion"));
+                agen.setEmailAgencia(res.getString("emailAgencia"));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            throw e;
+        } finally {
+            this.desconectar();
+        }
+        return agen;
+    
+    }
+    
+    
     
 }
