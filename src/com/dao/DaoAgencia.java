@@ -113,7 +113,7 @@ public class DaoAgencia extends Conexion
      return agencias;   
     }
     
-    public Agencia getDepto(int agencia) throws Exception{
+    public Agencia getAgencia(int agencia) throws Exception{
      Agencia agen = new Agencia();
       
      ResultSet res = null;

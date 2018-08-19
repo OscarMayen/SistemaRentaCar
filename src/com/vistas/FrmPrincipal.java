@@ -174,6 +174,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menuBar.add(DEPARTAMENTO);
 
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/compañia1.png"))); // NOI18N
         jMenu3.setText("AGENCIAS");
         jMenu3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
 
@@ -188,6 +189,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menuBar.add(jMenu3);
 
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/iconos/logo-auto1.png"))); // NOI18N
         jMenu4.setText("VEHICULOS");
         jMenu4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
 
@@ -279,9 +281,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        FrmVehiculo vehiculo  = new FrmVehiculo();
-        this.desktopPane.add(vehiculo);
-        vehiculo.setVisible(true);
+        try {
+            FrmVehiculo vehiculo  = new FrmVehiculo();
+            this.desktopPane.add(vehiculo);
+            vehiculo.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**

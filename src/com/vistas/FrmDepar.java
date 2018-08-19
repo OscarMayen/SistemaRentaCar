@@ -39,7 +39,6 @@ public class FrmDepar extends javax.swing.JInternalFrame {
                 dpto=(Departamento)ls.get(i);
                 obj[0]=dpto.getIdDepartamento();
                 obj[1]=dpto.getNombre();
-                
                 tabla.addRow(obj);
             }
             ls=daoDpto.mostrarDepartamento();
@@ -153,6 +152,11 @@ public class FrmDepar extends javax.swing.JInternalFrame {
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         JtbDepartamento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
